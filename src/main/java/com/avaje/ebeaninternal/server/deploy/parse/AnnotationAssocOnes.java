@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import com.avaje.ebean.annotation.EmbeddedColumns;
 import com.avaje.ebean.annotation.Where;
 import com.avaje.ebean.config.NamingConvention;
+import com.avaje.ebeaninternal.server.deploy.BeanDescriptor;
 import com.avaje.ebeaninternal.server.deploy.BeanDescriptorManager;
 import com.avaje.ebeaninternal.server.deploy.BeanTable;
 import com.avaje.ebeaninternal.server.deploy.TableJoin;
@@ -159,6 +160,13 @@ public class AnnotationAssocOnes extends AnnotationParser {
 
         setCascadeTypes(propAnn.cascade(), beanProp.getCascadeInfo());
 
+        // Get the inheritance info of the related bean
+        final BeanDescriptor<?> assocBean = factory.getBeanDescriptor(beanProp.getPropertyType());
+        
+        if (assocBean != null){
+        	assocBean.getInheritInfo();
+        }
+        
         BeanTable assoc = factory.getBeanTable(beanProp.getPropertyType());
         if (assoc == null) {
             String msg = errorMsgMissingBeanTable(beanProp.getPropertyType(), prop.getFullBeanName());
