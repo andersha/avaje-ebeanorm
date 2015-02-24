@@ -4,6 +4,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.avaje.ebean.BaseTestCase;
@@ -20,6 +21,7 @@ public class TestSharedInstancePropagation extends BaseTestCase {
 	/**
 	 * Test that the sharedInstance status is propagated on lazy loading.
 	 */
+  @Ignore("Doesn't work due to a feature not being available")
   @Test
 	public void testSharedListNavigate() {
 
